@@ -88,6 +88,9 @@ Thumbs.db
 # /src/custom/
 /src/custom
 
+# exclude /src/custom/
+!/src/custom/defines_pre.hpp
+
 # /src/login/
 /src/login/Makefile
 /src/login/obj_sql
