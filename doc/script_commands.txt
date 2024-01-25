@@ -474,7 +474,7 @@ Variables
 The meat of every programming language is variables - places where you store
 data.
 
-In the rAthena scripting language, variable names are not case sensitive.
+In the rAthena scripting language, variable names are NOT case sensitive.
 
 Variables are divided into and uniquely identified by the combination of:
 prefix  - determines the scope and extent (or lifetime) of the variable
@@ -535,7 +535,7 @@ nothing  - A permanent variable attached to the character, the default variable
 
 Postfix: integer or string
 nothing - integer variable, can store positive and negative numbers, but only
-          whole numbers (so don't expect to do any fractional math)
+          whole numbers (so don't expect to do any fractional math)  <---------------------------
 '$'     - string variable, can store text
 
 Examples:
@@ -565,7 +565,7 @@ forever, and no trace remains of it even if it was stored with character or
 account data.
 
 Some variables are special, that is, they are already defined for you by the
-scripting engine. You can see the full list in 'src/map/script_constants.hpp', which
+scripting engine. You can see the full list in 'src/map/script_constants.hpp', which <-------------------------------------
 is a file you should read, since it also allows you to replace lots of numbered
 arguments for many commands with easier to read text. The special variables most
 commonly used are all permanent character-based variables:
@@ -810,7 +810,7 @@ Logical bitwise operators work only on numbers, and they are the following:
 		if (.@options & 16)	mes "Options 5 is activated";
 	This would return the messages about option 2, 3 and 5 being shown (since we've set
 	the 2,4 and 16 bit to 1).
- ^  - Xor.
+ ^  - Xor.     --------------------------------------------------------------------------- ALTERNA BITS 
 	The bitwise operator XOR (eXclusive OR) sets a binary position to 0 if both
 	numbers have the same value in the said position. On the other hand, it
 	sets to 1 if they have different values in the said binary position.
@@ -822,14 +822,14 @@ Logical bitwise operators work only on numbers, and they are the following:
 	- After playing for a bit, the player starts another quest:
 		if (inProgress&2 == 0) {
 			// this will set the bit for quest 2 (inProgress has that bit set to 0)
-			set inProgress,inProgress^2;
+			set inProgress,inProgress^2;  --------------------------------------------- ALTERNA EL BIT 2
 			mes "Quest 2: find a newbie and be helpful to him for an hour.";
 			close;
 		}
 	- After spending some time reading info on Xor's, the player finally completes quest 1:
 		if (inProgress&1 && isComplete) {
 			// this will unset the bit for quest 1 (inProgress has that bit set to 1)
-			set inProgress,inProgress^1;
+			set inProgress,inProgress^1; --------------------------------------------- ALTERNA EL BIT 1
 			mes "Quest 1 complete!! You unlocked the secrets of the Xor dynasty, use them wisely.";
 			close;
 		}
@@ -1368,7 +1368,7 @@ Examples:
 	set .v, getvariableofnpc(.var,"TargetNPC");
 
 //This will set the .var variable of TargetNPC to 1.
-	set getvariableofnpc(.var,"TargetNPC"), 1;
+	set getvariableofnpc(.var,"TargetNPC"), 1; ----------------------------- modifica variable original, no copia
 
 Note: even though function objects can have .variables,
 getvariableofnpc will not work on them.
@@ -1383,7 +1383,7 @@ character "", permanent local account "#", and permanent global account "##").
 
 ---------------------------------------
 
-*goto <label>;
+*goto <label>; ------------------------------- para saltar codigo en caso extremo
 
 This command will make the script jump to a label, usually used in conjunction
 with other command, such as "if", but often used on its own.
@@ -1414,7 +1414,7 @@ Options can be grouped together, separated by the character ':'.
 
 	menu "A:B",L_Wrong,"C",L_Right;
 
-It also sets a special temporary character variable @menu, which contains the
+It also sets a special temporary character variable @menu, which contains the ---- @menu va guardando las opciones elegidas
 number of option the player picked. (Numbering of options starts at 1.)
 This number is consistent with empty options and grouped options.
 
@@ -1662,7 +1662,7 @@ generally cleaner:
 		return 1;// it's odd
 	}
 
-Alternately, as of rAthena revision 15979 and 15981, user-defined functions
+Alternately, as of rAthena revision 15979 and 15981, user-defined functions <-------------------------------
 may be called directly without the use of the 'callfunc' script command.
 
 	function<tab>script<tab>SayHello<tab>{
@@ -1697,7 +1697,7 @@ you like, to save space and time, without creating extra NPC objects which are
 needed with 'callfunc'. A label is not callable in this manner from another
 script.
 
-Example 1: callsub for checking (if checks pass, return to script)
+Example 1: callsub for checking (if checks pass, return to script) ----- es condicion. Si callsub pasa, entonces ejecuta script
 	callsub S_CheckFull, "guild_vs2",50;
 	switch( rand(4) ) {
 		case 0:	warp "guild_vs2",9,50;	end;
@@ -1774,7 +1774,7 @@ If no such argument was given, a zero is returned.
 		if (.@win == 0) return;
 		mes "Sorry, you lost.";
 		close;
-	|
+	}
 
 "woman1" NPC object calls the funcNPC. The argument it gives in this call is
 stated as 2, so when the random number is generated by the 'rand' function, it
@@ -1921,7 +1921,7 @@ Example:
 This is the basic conditional statement command, and just about the only one
 available in this scripting language.
 
-The condition can be any expression. All expressions resulting in a non-zero
+The condition can be any expression. All expressions resulting in a non-zero  ---------------- IMPORTANTE
 value will be considered True, including negative values. All expressions
 resulting in a zero are false.
 
@@ -2260,7 +2260,7 @@ First value is the index of the first element of the array to alter. For
 example:
 
     setarray .@array[0],200,200,200;
-    setarray .@array[1],300,150;
+    setarray .@array[1],300,150;    ------------ pa modificar arrays desde el indice indicado, god
 
 will produce:
 
@@ -2270,9 +2270,9 @@ will produce:
 
 ---------------------------------------
 
-*cleararray <array name>[<first value to alter>],<value>,<number of values to set>;
+*cleararray <array name>[<first value to alter>],<value>,<number of values to set>; 
 
-This command will change many array values at the same time to the same value.
+This command will change many array values at the same time to the same value. // cleararray desdecual, valor, cuantos
 
     setarray .@array[0], 100, 200, 300, 400, 500, 600;
     // This will make all 6 values 0
@@ -2427,7 +2427,7 @@ an empty string will be returned for CPC_NAME, 0 for other <type>.
 
 *strnpcinfo(<type>)
 
-This function will return the various parts of the name of the calling NPC.
+This function will return the various parts of the name OF THE CALLING NPC.
 Whatever it returns is determined by type.
 
  0 - The NPC's display name (visible#hidden)
@@ -2675,7 +2675,7 @@ Note: SECURE_NPCTIMEOUT must be enabled for this to work.
 \\
 ---------------------------------------
 
-*getequipid({<equipment slot>,<char_id>})
+*getequipid({<equipment slot>,<char_id>})  ----------------- PARA EVITAR QUE EQUIPEN ALGO ANTES DE ENTRAR
 
 This function returns the item ID of the item slot that calls the script
 on the invoking character or the specified equipment slot. If nothing is
@@ -2788,11 +2788,11 @@ will return the second one, etc. Will return 0 if no such item is found.
 
 ---------------------------------------
 
-*getequipisequiped(<equipment slot>{,<char_id>})
+*getequipisequiped(<equipment slot>{,<char_id>}) --- TRUE/FALSE
 
 This functions will return 1 if there is an equipment placed on the specified
 equipment slot and 0 otherwise. For a list of equipment slots
-see 'getequipid'. Function originally used by the refining NPCs:
+see 'getequipid'. Function originally used by the refining NPCs: <--------------------
 
     if (getequipisequiped(EQI_HEAD_TOP)) {
         mes "[Refiner]";
@@ -2806,7 +2806,7 @@ see 'getequipid'. Function originally used by the refining NPCs:
 
 ---------------------------------------
 
-*getequipisenableref(<equipment slot>{,<char_id>})
+*getequipisenableref(<equipment slot>{,<char_id>}) --- TRUE/FALSE
 
 Will return 1 if the item equipped on the invoking character in the specified
 equipment slot is refinable, and 0 if it isn't. For a list of equipment slots
@@ -2966,7 +2966,7 @@ of possible equipment slots.
 
 ---------------------------------------
 
-*getinventorylist {<char_id>};
+*getinventorylist {<char_id>}; ------------------- averiguar todo lo que tiene en el inventario
 
 This command sets a bunch of arrays with a complete list of whatever the
 invoking character has in their inventory, including all the data needed to
@@ -3368,8 +3368,8 @@ Type is the type of object to search for:
 	BL_ELEM - Elemental objects
 
 If <array_variable> is provided:
-	- An int variable will return the list of GID.
-	- A string variable will return the list of names.
+	- An int variable will return the list of GID. ---- si se entrega un array de INTs
+	- A string variable will return the list of names. ---- si se entrega un array de Strings
 
 Example 1:
 	// getting the players count and building a string array of the names.
@@ -3377,10 +3377,10 @@ Example 1:
 
 	mes "the number of Users Connected to the server is " + .@num + " .";
 	mes "list of Players names :";
-	freeloop(1);	// for if the list was too big.
+	freeloop(1);	// for if the list was too big. ---------- abre loop infinito
 	for(.@i=0;.@i<getarraysize(.@array$);.@i++)
 		mes (.@i + 1) + " " + .@array$[.@i];
-	freeloop(0);
+	freeloop(0); --------------------------------------------- cierra loop infinito en el mismo script
 	end;
 
 Example 2:
@@ -3512,7 +3512,7 @@ to by its map name. Castle information is stored in `guild_castle` SQL table.
 
 Types of data correspond to `guild_castle` table columns:
 
-CD_GUILD_ID          - Guild ID.
+CD_GUILD_ID          - Owner Guild ID 
 CD_CURRENT_ECONOMY   - Castle Economy score.
 CD_CURRENT_DEFENSE   - Castle Defense score.
 CD_INVESTED_ECONOMY  - Number of times the economy was invested in today.
@@ -3717,7 +3717,7 @@ $@MobDrop_count is the number of item drops found.
 Be sure to use $@MobDrop_count to go through the arrays, and not
 'getarraysize', because the temporary global arrays are not cleared between
 runs of 'getmobdrops'. If a mob with 7 item drops is looked up, the arrays would
-have 7 elements. But if another mob is looked up and it only has 5 item drops,
+have 7 elements. But if another mob is looked up and it only has 5 item drops, ----------IMPORTANTISIMO
 the server will not clear the arrays for you, overwriting the values instead. So
 in addition to returning the 5 item drops, the 6th and 7th elements from the
 last call remain, and you will get 5+2 item drops, of which the last 2 don't
@@ -3879,7 +3879,7 @@ Option numbers valid for the first (option) version of this command are:
 0x8       - Cart number 1 present.
 0x10      - Falcon present.
 0x20      - Peco Peco present.
-0x40      - GM Perfect Hide in effect.
+0x40      - GM Perfect Hide in effect. ------------------- ojito
 0x80      - Cart number 2 present.
 0x100     - Cart number 3 present.
 0x200     - Cart number 4 present.
@@ -4275,7 +4275,7 @@ to a random place. Same will happen if they are both zero:
 	warp "place",0,0;
 
 Notice that while warping people to coordinates 0,0 will normally get them into
-a random place, it's not certain to always be so. Darned if I know where this is
+a random place, it's not certain to always be so. Darned if I know where this is ---- XD
 actually coded, it might be that this happens because square 0,0 is unwalkable
 on all official maps. If you're using custom maps, beware.
 
@@ -4660,7 +4660,7 @@ Unlike 'getexp', this command ignores the adjustment factors!
 
 ---------------------------------------
 
-*getbaseexp_ratio(<percent>{,<base_level>{,char_id});
+*getbaseexp_ratio(<percent>{,<base_level>{,char_id}});
 
 Returns the amount of base experience representing the given <percent> of the
 required base experience at <base_level>. If no base level is specified the base
@@ -4668,7 +4668,7 @@ level of the attached character will be used.
 
 ---------------------------------------
 
-*getjobexp_ratio(<percent>{,<job_level>{,char_id});
+*getjobexp_ratio(<percent>{,<job_level>{,char_id}});
 
 Returns the amount of job experience representing the given <percent> of the
 required job experience at <job_level>. If no job level is specified the job
@@ -4864,8 +4864,8 @@ this. Careful, minor magic ahead.
 	// Let's assume our character is 'Adam' and find his ID.
 	.@charid = getcharid(0,"Adam");
 
-	// Now we split the character ID number into two portions with a binary
-	// shift operation. If you don't understand what this does, just copy it.
+	// Now we split the character ID number into two portions with a binary    ---- el item lee la ID uniendo los bits de card3 y card4
+	// shift operation. If you don't understand what this does, just copy it.  ---- este truco separa la ID en 2
 	.@card3 = .@charid & 65535;
 	.@card4 = .@charid >> 16;
 
@@ -5199,6 +5199,21 @@ See 'getitem2' for an explanation of the expanded parameters.
 
 ---------------------------------------
 
+*cartdelitem2 <item id>,<amount>,<identify>,<refine>,<attribute>,<card1>,<card2>,<card3>,<card4>{,<account ID>};
+*cartdelitem2 "<item name>",<amount>,<identify>,<refine>,<attribute>,<card1>,<card2>,<card3>,<card4>{,<account ID>};
+*storagedelitem2 <item id>,<amount>,<identify>,<refine>,<attribute>,<card1>,<card2>,<card3>,<card4>{,<account ID>};
+*storagedelitem2 "<item name>",<amount>,<identify>,<refine>,<attribute>,<card1>,<card2>,<card3>,<card4>{,<account ID>};
+*guildstoragedelitem2 <item id>,<amount>,<identify>,<refine>,<attribute>,<card1>,<card2>,<card3>,<card4>{,<account ID>};
+*guildstoragedelitem2 "<item name>",<amount>,<identify>,<refine>,<attribute>,<card1>,<card2>,<card3>,<card4>{,<account ID>};
+
+This command behaves identically to 'delitem2', but deletes items from the player's
+cart, storage, or guild storage.
+
+If no cart is mounted, 'cartdelitem2' will return -1.
+If player is not in a guild or storage is open, 'guildstoragedelitem2' will return -1.
+
+---------------------------------------
+
 *delitemidx <index>{,<amount>{,<char id>}}
 
 This command will remove an item at the given inventory index.
@@ -5220,21 +5235,6 @@ Example:
 	for (.@i = 0; .@i < @inventorylist_count; ++.@i)
 		if (@inventorylist_id[.@i] == 501)
 			delitemidx @inventorylist_idx[.@i];
-
----------------------------------------
-
-*cartdelitem2 <item id>,<amount>,<identify>,<refine>,<attribute>,<card1>,<card2>,<card3>,<card4>{,<account ID>};
-*cartdelitem2 "<item name>",<amount>,<identify>,<refine>,<attribute>,<card1>,<card2>,<card3>,<card4>{,<account ID>};
-*storagedelitem2 <item id>,<amount>,<identify>,<refine>,<attribute>,<card1>,<card2>,<card3>,<card4>{,<account ID>};
-*storagedelitem2 "<item name>",<amount>,<identify>,<refine>,<attribute>,<card1>,<card2>,<card3>,<card4>{,<account ID>};
-*guildstoragedelitem2 <item id>,<amount>,<identify>,<refine>,<attribute>,<card1>,<card2>,<card3>,<card4>{,<account ID>};
-*guildstoragedelitem2 "<item name>",<amount>,<identify>,<refine>,<attribute>,<card1>,<card2>,<card3>,<card4>{,<account ID>};
-
-This command behaves identically to 'delitem2', but deletes items from the player's
-cart, storage, or guild storage.
-
-If no cart is mounted, 'cartdelitem2' will return -1.
-If player is not in a guild or storage is open, 'guildstoragedelitem2' will return -1.
 
 ---------------------------------------
 

@@ -86,10 +86,7 @@ Thumbs.db
 /src/common/version.hpp
 
 # /src/custom/
-/src/custom
-
-# exclude /src/custom/
-!/src/custom/defines_pre.hpp
+# /src/custom
 
 # /src/login/
 /src/login/Makefile
