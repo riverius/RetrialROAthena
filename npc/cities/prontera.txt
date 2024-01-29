@@ -728,3 +728,13 @@ prt_maze02,110,69,0	script	Soldier#2pront	105,{
 	mes "Whaaaat a stupid guy. Why would anyone want to throw his life away just to collect some silly Herbs?";
 	close;
 }
+
+
+// RetrialRo Custom NPCs Prontera
+//============================================================
+
+prontera,140,173,0	script	testing 650,{
+	mes "[Test]";
+	mes "Hello, I am a test NPC.";
+	close;
+}
