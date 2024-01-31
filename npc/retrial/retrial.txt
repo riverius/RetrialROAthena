@@ -1,0 +1,22 @@
+//===== retrial Script =======================================
+//= Quests de Prueba.
+//===== By: ==================================================
+//= Mio
+//===== Last Updated: ========================================
+//= 31-01-2024
+//===== Description: ========================================= 
+//= NPCs para probar cosas.
+//============================================================
+
+prontera,140,173,4	script	testing#pront	650,{
+	cutin "GL_HIMEL2",1;
+	mes "[Test]";
+	mes "Hello, I am a test NPC.";
+	if (select("Falcon please!:No, thanks.") == 1) {
+		mes "[Test]";
+		mes "Falcon for you!";
+		setfalcon;
+		close3;
+	}
+	close3;
+}

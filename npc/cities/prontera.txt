@@ -733,15 +733,3 @@ prt_maze02,110,69,0	script	Soldier#2pront	105,{
 // RetrialRo Custom NPCs Prontera
 //============================================================
 
-prontera,140,173,4	script	testing#pront	650,{
-	cutin "GL_HIMEL2",1;
-	mes "[Test]";
-	mes "Hello, I am a test NPC.";
-	if (select("Falcon please!:No, thanks.") == 1) {
-		mes "[Test]";
-		mes "Falcon for you!";
-		setfalcon;
-		close3;
-	}
-	close3;
-}
