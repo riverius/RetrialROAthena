@@ -8,6 +8,8 @@
 //= NPCs para probar cosas.
 //============================================================
 
+//Esta es una forma correcta de crear variables permanentes para el personaje (LEFALCON)
+//No se pierde al relogear ni reiniciar el servidor.
 prontera,140,173,4	script	testing#pront	650,{
     cutin "GL_HIMEL2",1;
 	if (LEFALCON == 1) {
@@ -17,7 +19,7 @@ prontera,140,173,4	script	testing#pront	650,{
             mes "[Test]";
             mes "Bye falcon!";
             setfalcon 0;
-            LEFALCON = 0; // creacion de variable
+            LEFALCON = 0; // aunque sea 0 no deja de existir
             close3;
         }
         close3;
@@ -30,4 +32,21 @@ prontera,140,173,4	script	testing#pront	650,{
 		close3;
 	}
 	close3;
+}
+
+
+prontera,137,169,4 script MioSlave#pront 1752,{
+    cutin "MALAYA_DIWATA02",1;
+    mes "[MioSlave]";
+    mes "Hello, Master.";
+    mes "Tell me what to do.";
+    menu "Teleport to Mjolnir_06", mioteleport, "Stay.",miostay;
+    mioteleport:
+        warp "mjolnir_06",162,271;
+        end;
+    miostay:
+        next;
+        mes "[MioSlave]";
+        mes "I will stay here, Master.";
+        close3;
 }
