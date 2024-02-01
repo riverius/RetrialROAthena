@@ -1,5 +1,5 @@
 //===== retrial Script =======================================
-//= Quests de Prueba.
+//= retrial
 //===== By: ==================================================
 //= Mio
 //===== Last Updated: ========================================
@@ -9,13 +9,24 @@
 //============================================================
 
 prontera,140,173,4	script	testing#pront	650,{
-	cutin "GL_HIMEL2",1;
-	mes "[Test]";
-	mes "Hello, I am a test NPC.";
+    cutin "GL_HIMEL2",1;
+	if (LEFALCON == 1) {
+        mes "[Test]";
+        mes "You already have a falcon.";
+        if(select("KILL IT:I want to keep it.") == 1) {
+            mes "[Test]";
+            mes "Bye falcon!";
+            setfalcon 0;
+            LEFALCON = 0; // creacion de variable
+            close3;
+        }
+        close3;
+    }
 	if (select("Falcon please!:No, thanks.") == 1) {
 		mes "[Test]";
 		mes "Falcon for you!";
 		setfalcon;
+        set LEFALCON, 1; // creacion de variable
 		close3;
 	}
 	close3;
