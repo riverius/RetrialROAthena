@@ -232,7 +232,7 @@ prontera,78,150,3	script	Dairenne#pront	90,{
 //This NPC has been disabled officially.
 prt_in,178,92,0	script	Curator of Library#pront	57,{
 	mes "[Curator Guiss]";
-	mes "Here, in the Western branch of the Prontera Library, ";
+	mes "Here, in the Western branch of the Prontera  Library, ";
 	mes "we keep records of monsters found in various dungeons scattered around the Rune-Midgarts Kingdom.";
 	next;
 	mes "[Curator Guiss]";

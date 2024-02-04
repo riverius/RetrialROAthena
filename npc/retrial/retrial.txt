@@ -1,0 +1,92 @@
+//===== retrial Script =======================================
+//= retrial
+//===== By: ==================================================
+//= Mio
+//===== Last Updated: ========================================
+//= 31-01-2024
+//===== Description: ========================================= 
+//= NPCs para probar cosas.
+//============================================================
+
+//Esta es una forma correcta de crear variables permanentes para el personaje (LEFALCON)
+//No se pierde al relogear ni reiniciar el servidor.
+prontera,140,173,5	script	testing#pront	650,{
+    cutin "GL_HIMEL2",1;
+	if (LEFALCON == 1) {
+        mes "[Test]";
+        mes "You already have a falcon.";
+        if(select("KILL IT:I want to keep it.") == 1) {
+            mes "[Test]";
+            mes "Bye falcon!";
+            setfalcon 0;
+            LEFALCON = 0; // aunque sea 0 no deja de existir
+            close3;
+        }
+        close3;
+    }
+	if (select("Falcon please!:No, thanks.") == 1) {
+		mes "[Test]";
+		mes "Falcon for you!";
+		setfalcon;
+        set LEFALCON, 1; // creacion de variable
+		close3;
+	}
+	close3;
+}
+
+//probando varias funciones y variables
+prontera,137,169,5	script	Mio Slave#pront	403,{
+    cutin "3RD_AB_ANGHILDE01",1;
+    mes "[MioSlave]";
+    mes "Hello, Master.";
+    mes "Tell me what to do.";
+    .@menu = select("Teleport to Mjolnir_06:Pick Stone:Stay.");
+    if (.@menu == 1) {
+        warp "mjolnir_06",162,271;
+        end;
+    }
+    if (.@menu == 2) {
+        skill 151,1,3; // da la skill pick stone de forma permanente
+        mes "[MioSlave]";
+        mes "You now have the skill Pick Stone.";
+        close3;
+    }
+    else {
+        next;
+        mes "[MioSlave]";
+        mes "I will stay here, Master.";
+        close3;
+    }
+}
+
+// warp mjolnir_06 a prontera
+mjolnir_06,178,260,0	warp	mioWarp	2,5,prontera,156,181
+
+// NPC pa probar quests
+mjolnir_06,162,279,5	script	Canor#mjlr06	95,{
+    cutin "CA_NOR",1;
+    mes "[Canor]";
+    mes "Hello, Master.";
+    mes "Let's try to make this quest work.";
+    close3;
+}
+
+//test doevent npc --- se activa unicamente el evento del otro npc
+mjolnir_06,162,274,4	script	doevent1#mjlr06	401,{
+    mes "Guy 2 copies my actions!";
+		close2;
+		donpcevent "doevent2#mjlr06::OnEmote";
+		end;
+	OnEmote:
+		emotion rand(1,30);
+		end;
+}
+mjolnir_06,160,274,5	script	doevent2#mjlr06	471,{
+    mes "Guy 1 copies my actions!";
+		close2;
+		donpcevent "doevent1#mjlr06::OnEmote";
+		end;
+	OnEmote:
+		emotion rand(1,30);
+		end;
+}
