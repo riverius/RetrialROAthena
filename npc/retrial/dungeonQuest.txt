@@ -1,0 +1,168 @@
+//===== dungeonQuest =======================================
+//= Retrial Dungeon NPCs
+//===== By: ==================================================
+//= Mio
+//===== Last Updated: ========================================
+//= 16-02-2024
+//===== Description: ========================================= 
+//= Testeando NPCs para el Roguelike Dungeon
+//============================================================
+
+
+function	script	dungMenu	{
+	.@menuVer = getarg(0);
+
+	switch (.@menuVer) {
+		case 1:
+	 		setarray .@dungMenu$[0],"Start stage.","Open shop.";
+			break;
+	}
+	return;
+}
+
+
+
+
+new_1-1,46,113,5	script	Shadow#retrial	737,{
+    mes "[Shadow]";
+    mes "Dead again, master?";
+    .@menu = select("Heal me, idiot.:Kill everything, now!:Bye.");
+    if (.@menu == 1) {
+        clear;
+        mes "[Shadow]";
+        mes "Yes.";
+        specialeffect2 EF_HEAL2;
+        percentheal 100,100;
+        specialeffect2 EF_INCAGILITY;
+		sc_start SC_INCREASEAGI,240000,10;
+		specialeffect2 EF_BLESSING;
+		sc_start SC_BLESSING,240000,10;
+        close;
+    }
+    else if (.@menu == 2) {
+        mes "[Shadow]";
+        mes "Yes.";
+        killmonsterall "new_1-1";
+        close;
+    }
+    close;
+}
+
+new_1-1,66,149,4	script	Tuntun#retrial	492,{
+
+    mes "[Tuntun]";
+    mes "Hello, master,";
+
+    // como es STAGE > X, no puedo usar switch, ya que no es un valor fijo. 
+    // Si supiera cuantas stages exactas hay, podria crear un CASE para cada una.
+    if (STAGE > 2) {
+        mes "I never thought you'd be hacking. Shame on you.";
+        setarray .@K_Menu0$[0],"Start again.","Later.","Reset Stages.","Plus 1";
+    } else if (STAGE == 1) {
+        setarray .@K_Menu0$[0],"Start Stage.","Later.";
+    } else if (STAGE == 2) {
+        clear;
+        mes "[Tuntun]";
+        mes "Stage 1 completed.";
+		setarray .@K_Menu0$[0],"Start again.","Later.","Reset Stages.","Plus 1","Next Stage.";
+    } else {
+        mes "I never thought you'd be hacking. Shame on you.";
+        setarray .@K_Menu0$[0],"Start again.","Later.","Reset Stages.","Plus 1";
+    }
+
+    .@menuK$ = implode(.@K_Menu0$,":");;
+    .@menu = select(.@menuK$);
+    if (.@menu == 1) {
+        clear;
+        mes "[Tuntun]";
+        mes "Yes.";
+        set MUERTOS, 0;
+        set STAGE, 1;
+        donpcevent "mioControl#dung::OnStage1";
+        end;
+    } else if (.@menu == 2) {
+        close;
+    } else if (.@menu == 3) {
+        clear;
+        mes "[Tuntun]";
+        mes "Stage reset completed.";
+        set STAGE, 1;
+        close;
+    } else if (.@menu == 4) {
+        clear;
+        mes "[Tuntun]";
+        mes "Stage +1.";
+        STAGE++;
+        close;
+    } else if (.@menu == 5) {
+        warp "new_1-1",117,48;
+        end;
+    }
+    close;
+}
+
+
+new_1-1,127,54,4	script	Narin#dung	10238,{
+	mes "[Shion]";
+	mes "You don't look strong.";
+	close;
+}
+
+
+// Control de invocaciones
+new_1-1,1,1,0	script	mioControl#dung	54,{
+OnInit:
+    sleep 10000;
+    disablenpc "Shion#nv1";
+    disablenpc "Guard#nv1";
+    disablenpc "Guard#nv2";
+    disablenpc "Bulletin Board#nv";
+    setwall "new_1-1",91,109,6,0,0,"noPuente";
+
+	//Carga Cutins de NPC al server
+	if ($Ret_Cutin$[0] == "") {
+		setarray $Ret_Cutin$[0],"MA_TOMAS01";
+		setarray $Ret_Cutin$[1],"BIO_KATRINN04";
+		setarray $Ret_Cutin$[2],"EP14_NYD02";
+		setarray $Ret_Cutin$[3],"EP14_ROBERT2";
+	}
+	if ($Ret_KafName$ == "") {
+		setarray $Ret_KafName$[0],"RetrialKafra#Puss";
+		setarray $Ret_KafName$[1],"RetrialKafra#Kat";
+		setarray $Ret_KafName$[2],"RetrialKafra#Nyd";
+		setarray $Ret_KafName$[3],"RetrialKafra#Rob";
+	}
+	if ($Ret_KafInter1$ == "") {
+		setarray $Ret_KafMes1$[0],"Hello, Puss!";
+		setarray $Ret_KafMes1$[1],"Hello, Kat!";
+		setarray $Ret_KafMes1$[2],"Hello, Nyd!";
+		setarray $Ret_KafMes1$[3],"Hello, Rob!";
+	}
+	if ($Ret_KafInter2$ == "") {
+		setarray $Ret_KafMes2$[0],"Hello, Puss!";
+		setarray $Ret_KafMes2$[1],"Hello, Kat!";
+		setarray $Ret_KafMes2$[2],"Hello, Nyd!";
+		setarray $Ret_KafMes2$[3],"Hello, Rob!";
+	}
+	end;
+
+OnStage1:
+    sleep 2000;
+    monster "new_1-1",56,144,"NOoOOoOOOooOo",1374,1,"mioControl#dung::OnMobKill";
+    monster "new_1-1",60,144,"YesSSsSSSssSs",1370,1,"mioControl#dung::OnMobKill";
+    sleep 10000;
+    monster "new_1-1",56,144,"NOoOOoOOOooOo",1374,1,"mioControl#dung::OnMobKill";
+    monster "new_1-1",60,144,"YesSSsSSSssSs",1370,1,"mioControl#dung::OnMobKill";
+    end;
+OnStage2:
+OnStage3:
+OnStage4:
+
+OnMobKill:
+    MUERTOS++;
+    if (MUERTOS == 4) {
+        STAGE++;
+        announce "All monster are dead, good job.",bc_npc|bc_map;
+    }
+    end;
+}

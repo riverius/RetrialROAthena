@@ -229,6 +229,7 @@ function Slot {
 }
 }
 
+// se guarda todos los argumentos entregados a qshop en el array @i
 function	script	qshop	{
 	deletearray @i[0],getarraysize(@i);
 	for(set .@i,0; .@i<getargcount(); set .@i,.@i+1)

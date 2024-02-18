@@ -1,0 +1,98 @@
+//===== retrial Script =======================================
+//= retrialKafra
+//===== By: ==================================================
+//= Mio
+//===== Last Updated: ========================================
+//= 04-02-2024
+//===== Description: ========================================= 
+//= Kafra Dinamica Segun Selecccion del jugador
+//============================================================
+
+
+// TODO
+// Modificar CUTIN para que use array con nombres
+function	script	F_RetrialKafra	{
+    .@kafCutin$ = getarg(0);
+    .@kafName$ = getarg(1);
+    cutin .@kafCutin$, 1;
+    setarray .@Ret_Menu0$[0],"Captain Puss","Kathrynne","Nydhogg","Robert";
+    setarray .@Ret_Cutin0$[0],"MA_TOMAS01","BIO_KATRINN04","EP14_NYD02","EP14_ROBERT2";
+    setarray .@Ret_KafName0$[0],"RetrialKafra#Puss","RetrialKafra#Kat","RetrialKafra#Nyd","RetrialKafra#Rob";
+    .@menu$ = implode(.@Ret_Menu0$,":");
+
+    while (true) {
+        mes "[Retrial Kafra]";
+        mes "You can change my appareance!";
+        .@j = select(.@menu$);
+        if (.@j == 1) {
+            hideonnpc .@kafName$;
+            hideoffnpc .@Ret_KafName0$[0];
+            cutin 255, 0;
+            cutin "MA_TOMAS01", 1;
+            set MIKAFRA,1;
+            mes "I'm now Captain Puss!";
+            close3;   
+        }
+        else if (.@j == 2) {
+            hideonnpc .@kafName$;
+            hideoffnpc .@Ret_KafName0$[1];
+            cutin 255, 0;
+            cutin "BIO_KATRINN04", 1;
+            set MIKAFRA,2;
+            mes "I'm now Kathrynne!";
+            close3;
+        }
+        else if (.@j == 3) {
+            hideonnpc .@kafName$;
+            hideoffnpc .@Ret_KafName0$[2];
+            cutin 255, 0;
+            cutin "EP14_NYD02", 1;
+            set MIKAFRA,3;
+            mes "I'm now Nydhogg!";
+            close3;
+        }
+        else if (.@j == 4) {
+            hideonnpc .@kafName$;
+            hideoffnpc .@Ret_KafName0$[3];
+            cutin 255, 0;
+            cutin "EP14_ROBERT2", 1;
+            set MIKAFRA,4;
+            mes "I'm now Robert!";
+            close3;
+        }
+    }
+}
+    
+
+prontera,144,173,5	script	RetrialKafra#Puss	556,{
+    set MIKAFRA,1;
+    callfunc "F_RetrialKafra","MA_TOMAS01","RetrialKafra#Puss";
+}
+
+prontera,144,173,5	script	RetrialKafra#Kat	597,{
+    set MIKAFRA,2;
+    callfunc "F_RetrialKafra","BIO_KATRINN04","RetrialKafra#Kat";
+
+OnInit:
+    hideonnpc "RetrialKafra#Kat";
+    end; 
+}
+
+prontera,144,173,5	script	RetrialKafra#Nyd	510,{
+    set MIKAFRA,3;
+    callfunc "F_RetrialKafra","EP14_NYD02","RetrialKafra#Nyd";
+
+OnInit:
+    hideonnpc "RetrialKafra#Nyd";
+    end; 
+}
+
+prontera,144,173,5	script	RetrialKafra#Rob	621,{
+    set MIKAFRA,4;
+    callfunc "F_RetrialKafra","EP14_ROBERT2","RetrialKafra#Rob";
+
+OnInit:
+    hideonnpc "RetrialKafra#Rob";
+    end; 
+}
+

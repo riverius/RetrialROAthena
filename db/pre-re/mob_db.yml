@@ -41218,6 +41218,29 @@ Body:
     AttackMotion: 672
     DamageMotion: 480
     Ai: 02
+  ## test para incluir monstruo renewal
+  - Id: 2257
+    AegisName: I_PIAMETTE
+    Name: Piamette
+    Level: 1
+    Hp: 50
+    Attack: 7
+    Attack2: 10
+    MagicDefense: 5
+    Dex: 6
+    Luk: 30
+    AttackRange: 1
+    SkillRange: 10
+    ChaseRange: 12
+    Size: Small
+    Race: Formless
+    Element: Water
+    ElementLevel: 1
+    WalkSpeed: 400
+    AttackDelay: 1872
+    AttackMotion: 672
+    DamageMotion: 480
+    Ai: 02
   - Id: 2308
     AegisName: KO_ZANZOU
     Name: Zanzou

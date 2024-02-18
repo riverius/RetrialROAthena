@@ -61,7 +61,7 @@ const t_tick MOB_MAX_DELAY = 24 * 3600 * 1000;
 
 // Limits for the monster database
 #define MIN_MOB_DB 1000
-#define MAX_MOB_DB 3999
+#define MAX_MOB_DB 5000
 #define MIN_MOB_DB2 20020
 #define MAX_MOB_DB2 31999
 
