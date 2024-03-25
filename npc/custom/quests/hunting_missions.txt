@@ -24,7 +24,7 @@
 //============================================================
 
 prontera,152,187,6	script	Hunting Missions	4_F_EDEN_MASTER,{
-function Chk;
+	function Chk;
 	mes "[Hunting Missions]";
 	mes "Hello, " + strcharinfo(0) + "!";
 	if (!#Mission_Delay) {

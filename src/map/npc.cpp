@@ -2121,10 +2121,10 @@ struct npc_data* npc_checknear(map_session_data* sd, struct block_list* bl)
 	if (nd->class_<0) //Class-less npc, enable click from anywhere.
 		return nd;
 
-	if (bl->m!=sd->bl.m ||
-	   bl->x<sd->bl.x-AREA_SIZE-1 || bl->x>sd->bl.x+AREA_SIZE+1 ||
-	   bl->y<sd->bl.y-AREA_SIZE-1 || bl->y>sd->bl.y+AREA_SIZE+1)
-		return NULL;
+	// if (bl->m!=sd->bl.m ||
+	//    bl->x<sd->bl.x-AREA_SIZE-1 || bl->x>sd->bl.x+AREA_SIZE+1 ||
+	//    bl->y<sd->bl.y-AREA_SIZE-1 || bl->y>sd->bl.y+AREA_SIZE+1)
+	// 	return NULL;
 
 	return nd;
 }

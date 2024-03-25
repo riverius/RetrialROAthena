@@ -190,7 +190,7 @@ ElementLevel: Element level of the monster.
 
 WalkSpeed: Walk speed of the monster.
 
-20		- Fastest (MIN_WALK_SPEED
+20		- Fastest (MIN_WALK_SPEED)
 150		- Normal (DEFAULT_WALK_SPEED)
 1000	- Slowest (MAX_WALK_SPEED)
 

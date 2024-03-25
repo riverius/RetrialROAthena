@@ -7102,3 +7102,5 @@ Body:
   - Id: 62238
     Title: Midgardian Mercenary timer
     TimeLimit: +1h
+  - Id: 70000
+    Title: Retrial Dungeon Tutorial

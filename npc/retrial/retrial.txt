@@ -40,17 +40,36 @@ prontera,137,169,5	script	Mio Slave#pront	403,{
     mes "[MioSlave]";
     mes "Hello, Master.";
     mes "Tell me what to do.";
-    .@menu = select("Teleport to Mjolnir_06:Pick Stone:Stay.");
+    .@menu = select("Teleport to Mjolnir_06:Pick Stone:Set stats to one.:Recover Stats.:Stay.");
     if (.@menu == 1) {
         warp "mjolnir_06",162,271;
         end;
     }
-    if (.@menu == 2) {
+    else if (.@menu == 2) {
         skill 151,1,3; // da la skill pick stone de forma permanente
         mes "[MioSlave]";
         mes "You now have the skill Pick Stone.";
         close3;
     }
+	else if (.@menu == 3) {
+		set RET_STR, readparam(bStr, getcharid(0));
+		set RET_AGI, readparam(bAgi, getcharid(0));
+		set RET_VIT, readparam(bVit, getcharid(0));
+		set RET_INT, readparam(bInt, getcharid(0));
+		set RET_DEX, readparam(bDex, getcharid(0));
+		set RET_LUK, readparam(bLuk, getcharid(0));
+
+		setstats2one getcharid(0);
+		mes "[MioSlave]";
+        mes "All your stats are now 1.";
+		close3;
+	}
+	else if (.@menu == 4) {
+		setstats2origin getcharid(0),RET_STR,RET_AGI,RET_VIT,RET_INT,RET_DEX,RET_LUK;
+		mes "[MioSlave]";
+        mes "Your stats have been restored.";
+		close3;
+	}
     else {
         next;
         mes "[MioSlave]";

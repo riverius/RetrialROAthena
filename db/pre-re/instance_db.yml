@@ -81,3 +81,15 @@ Body:
       Y: 36
     AdditionalMaps:
       2@nyd: true
+  
+  #### Custom Retrial
+  - Id: 5
+    Name: Retrial Dungeon Tutorial
+    TimeLimit: 1800
+    Enter:
+      Map: lv_beach
+      X: 92
+      Y: 90
+    AdditionalMaps:
+      ice2xlake: true
+

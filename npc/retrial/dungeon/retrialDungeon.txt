@@ -1,0 +1,152 @@
+//===== retrialDungeon =======================================
+//= Retrial Dungeon NPCs
+//===== By: ==================================================
+//= Mio
+//===== Last Updated: ========================================
+//= 19-02-2024
+//===== Description: ========================================= 
+//= Retrial Roguelike Dungeon
+//============================================================
+
+
+
+
+prontera,143,169,5	script	Leticia#ret	584,{
+	cutin "4JOB_LETICIA_01",1;
+
+	//quest tutorial
+	set .@ins_retrial_check,isbegin_quest(70000);
+
+	if (TUTORIALID != 0 && .@ins_retrial_check == 1) {
+		mes "[Leticia]";
+		mes "Looks like you failed, hahaha. Let's try again.";
+		erasequest 70000;
+		instance_destroy TUTORIALID;
+
+		close2;
+		cutin "",255;
+		end;
+
+	}
+
+
+	if (.@ins_retrial_check != 2) {
+		mes "[Leticia]";
+		mes "I haven't seen your face before. I'm always willing to accept a new soul for the journey. Would you like to come?";
+		.@menu = select("Who are you?:Alright, I'll go with you.:Destroy:You look creepy.");
+		switch (.@menu) {
+			case 1:
+				//Hacer lore
+				clear;
+				mes "[Leticia]";
+				mes "TODO";
+				break;
+			case 2:
+				if (getcharid(1) != 0){
+					//agregar cutin
+					clear;
+					mes "[Leticia]";
+					mes "You must leave your party for this training.";
+					break;
+				} else {
+					clear;
+					mes "[Leticia]";
+					mes "Very well, here we go.";
+					set TUTORIALID, instance_create ("Retrial Dungeon Tutorial",IM_CHAR);
+					next;
+					switch(instance_enter("Retrial Dungeon Tutorial",-1,-1,getcharid(0),TUTORIALID)) {
+						case IE_OTHER:
+							clear;
+							mes "[Leticia]";
+							mes "Are you dead?";
+							break;
+						case IE_NOMEMBER:
+							clear;
+							mes "[Leticia]";
+							mes "Are you dead?";
+							break;
+						case IE_NOINSTANCE:
+							clear;
+							mes "[Leticia]";
+							mes "Are you dead?";
+							break;
+						case IE_OK:
+							mapannounce prontera,strcharinfo(0) + " is now entering the pit for the first time. Good luck.",bc_map; 
+							setquest 70000;
+							break;
+					}
+				}
+
+				
+
+				break;
+			
+			case 3:
+				erasequest 70000;
+				instance_destroy TUTORIALID;
+
+				close2;
+				cutin "",255;
+				end;
+
+			case 4:
+				//agregar cutin
+				clear;
+				mes "[Leticia]";
+				mes "Humans are all the same.";
+				break;
+			
+		}
+		close2;
+		cutin "",255;
+		end;
+	}
+	
+	// mes "[Leticia]";
+	// mes "Hello, adventurer!";
+	// mes "If you are here I supose you want to retry.";
+	// if (select ("Let the dungeon begin.:Not now.") == 1) {
+	// 	clear;
+	// 	cutin "",255;
+	// 	cutin "4JOB_LETICIA_03",1;
+	// 	emotion 29;
+	// 	mes "[Leticia]";
+	// 	mes "Here we go then.";
+	// 	//warp, iniciar instancia
+	// 	close3;
+	// }
+	// clear;
+	// cutin "",255;
+	// emotion 9;
+	// cutin "4JOB_LETICIA_02",1;
+	// mes "[Leticia]";
+	// mes "Then get out.";
+	// close3;
+}
+
+
+
+lv_beach,98,95,4	script	Leticia#beach	584,{
+
+}
+
+lv_beach,1,1,0	script	tutorial_fight1	-1,{
+OnInstanceInit:
+	disablenpc instance_npcname("tutorial_fight1");
+	end;
+OnDisable:
+	disablenpc instance_npcname("tutorial_fight1");
+	stopnpctimer;
+	end;
+OnEnable:
+	enablenpc instance_npcname("tutorial_fight1");
+	initnpctimer;
+	end;
+OnTimer3000:
+	mapannounce instance_mapname("tutorial_fight1"), "What do we have here? More fresh meat... ",bc_map,"0xFFFF00";
+	end;
+OnTimer8000:
+	mapannounce instance_mapname("tutorial_fight1"), "Listen to me, brothers! We're having a feast tonight... Embrace yourself!",bc_map,"0xFFFF00";
+OnTimer12000:
+	
+}

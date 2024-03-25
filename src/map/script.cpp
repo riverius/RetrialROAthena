@@ -27171,6 +27171,88 @@ BUILDIN_FUNC(preg_match) {
 #endif
 }
 
+// Retrial RO
+// setstats2one <char_id>;
+BUILDIN_FUNC(setstats2one) {
+	int char_id = script_getnum(st, 2);
+	map_session_data *sd = map_charid2sd(char_id);
+
+	if (!sd) {
+		ShowError("buildin_getvar: No player found with char id '%d'.\n", char_id);
+		return SCRIPT_CMD_FAILURE;
+	}
+
+	sd->status.str=1;
+	sd->status.agi=1;
+	sd->status.vit=1;
+	sd->status.int_=1;
+	sd->status.dex=1;
+	sd->status.luk=1;
+
+	clif_updatestatus(sd,SP_STR);
+	clif_updatestatus(sd,SP_AGI);
+	clif_updatestatus(sd,SP_VIT);
+	clif_updatestatus(sd,SP_INT);
+	clif_updatestatus(sd,SP_DEX);
+	clif_updatestatus(sd,SP_LUK);
+
+	clif_updatestatus(sd,SP_USTR);
+	clif_updatestatus(sd,SP_UAGI);
+	clif_updatestatus(sd,SP_UVIT);
+	clif_updatestatus(sd,SP_UINT);
+	clif_updatestatus(sd,SP_UDEX);
+	clif_updatestatus(sd,SP_ULUK);
+
+	status_calc_pc(sd, SCO_FORCE);
+
+	return SCRIPT_CMD_SUCCESS;
+}
+
+// Retrial RO
+// setstats2one <char_id>;
+BUILDIN_FUNC(setstats2origin) {
+	int char_id = script_getnum(st, 2);
+	map_session_data *sd = map_charid2sd(char_id);
+
+	if (!sd) {
+		ShowError("buildin_getvar: No player found with char id '%d'.\n", char_id);
+		return SCRIPT_CMD_FAILURE;
+	}
+
+	int char_str = script_getnum(st, 3);
+	int char_agi = script_getnum(st, 4);
+	int char_vit = script_getnum(st, 5);
+	int char_int = script_getnum(st, 6);
+	int char_dex = script_getnum(st, 7);
+	int char_luk = script_getnum(st, 8);
+
+	sd->status.str=char_str;
+	sd->status.agi=char_agi;
+	sd->status.vit=char_vit;
+	sd->status.int_=char_int;
+	sd->status.dex=char_dex;
+	sd->status.luk=char_luk;
+
+	clif_updatestatus(sd,SP_STR);
+	clif_updatestatus(sd,SP_AGI);
+	clif_updatestatus(sd,SP_VIT);
+	clif_updatestatus(sd,SP_INT);
+	clif_updatestatus(sd,SP_DEX);
+	clif_updatestatus(sd,SP_LUK);
+
+	clif_updatestatus(sd,SP_USTR);
+	clif_updatestatus(sd,SP_UAGI);
+	clif_updatestatus(sd,SP_UVIT);
+	clif_updatestatus(sd,SP_UINT);
+	clif_updatestatus(sd,SP_UDEX);
+	clif_updatestatus(sd,SP_ULUK);
+
+	status_calc_pc(sd, SCO_FORCE);
+	
+	return SCRIPT_CMD_SUCCESS;
+}
+
+
 /// script command definitions
 /// for an explanation on args, see add_buildin_func
 struct script_function buildin_func[] = {
@@ -27882,6 +27964,11 @@ struct script_function buildin_func[] = {
 	BUILDIN_DEF(has_autoloot,"?"),
 	BUILDIN_DEF(autoloot,"??"),
 	BUILDIN_DEF(opentips, "i?"),
+
+	// RETRIAL RO
+	BUILDIN_DEF(setstats2one, "i"),
+	BUILDIN_DEF(setstats2origin, "iiiiiii"),
+
 
 #include <custom/script_def.inc>
 

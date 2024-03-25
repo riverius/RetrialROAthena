@@ -10,7 +10,7 @@
 -	shop	Emistry_Shop	-1,512:100
 
 
-prontera,147,167,5	script	Sample	757,{
+prontera,147,167,5	script	mioShop#pront	757,{
 function ShopSettings;
 function ValidateCost;
 function CurrencyInfo;
@@ -18,27 +18,7 @@ function ClearData;
 function ValueConvert;
 function ErrorNotice;
 
-mes "Each Shop from the Menu may purchase using ^FF0000Different Currency^000000.";
-mes "^00FF00____________________________^000000";
-mes "So,Which shop you would like to look at it";
-next;
-// Menu Selection
-select("Shop 1","Shop 2","Shop 3");
-
-ClearData();
-ShopSettings( @menu );
-npcshopitem "Emistry_Shop",512,100;
-npcshopdelitem "Emistry_Shop",512;
-for(set .@i,0; .@i < getarraysize( @ItemLists ); set .@i,.@i+1)
-	npcshopadditem "Emistry_Shop",@ItemLists[.@i],@ItemCost[.@i];
-mes "Okay...wait awhile";
-mes "^00FF00____________________________^000000";
-CurrencyInfo( @Currency$ );
-mes "^00FF00____________________________^000000";
-callshop "Emistry_Shop",1;
-npcshopattach "Emistry_Shop";
-end;
-
+goto OnShopping;
 
 function	ShopSettings	{
 	switch( getarg(0) ){
@@ -127,6 +107,28 @@ function	ValueConvert	{
 	}
 	return .@num$;
 }
+
+OnShopping:
+	mes "Each Shop from the Menu may purchase using ^FF0000Different Currency^000000.";
+	mes "^00FF00____________________________^000000";
+	mes "So,Which shop you would like to look at it";
+	next;
+	// Menu Selection
+	select("Shop 1","Shop 2","Shop 3");
+
+	ClearData();
+	ShopSettings( @menu );
+	npcshopitem "Emistry_Shop",512,100;
+	npcshopdelitem "Emistry_Shop",512;
+	for(set .@i,0; .@i < getarraysize( @ItemLists ); set .@i,.@i+1)
+		npcshopadditem "Emistry_Shop",@ItemLists[.@i],@ItemCost[.@i];
+	mes "Okay...wait awhile";
+	mes "^00FF00____________________________^000000";
+	CurrencyInfo( @Currency$ );
+	mes "^00FF00____________________________^000000";
+	callshop "Emistry_Shop",1;
+	npcshopattach "Emistry_Shop";
+	end;	
 
 OnBuyItem:
 	ShopSettings( @menu );
