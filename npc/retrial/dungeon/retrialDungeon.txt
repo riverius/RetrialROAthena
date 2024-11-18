@@ -32,7 +32,7 @@ prontera,143,169,5	script	Leticia#ret	584,{
 
 	if (.@ins_retrial_check != 2) {
 		mes "[Leticia]";
-		mes "I haven't seen your face before. I'm always willing to accept a new soul for the journey. Would you like to come?";
+		mes "I haven't seen your face before. I'm always willing to accept a new soul for the journey. Would you like to try?";
 		.@menu = select("Who are you?:Alright, I'll go with you.:Destroy:You look creepy.");
 		switch (.@menu) {
 			case 1:
@@ -70,8 +70,7 @@ prontera,143,169,5	script	Leticia#ret	584,{
 							mes "[Leticia]";
 							mes "Are you dead?";
 							break;
-						case IE_OK:
-							mapannounce prontera,strcharinfo(0) + " is now entering the pit for the first time. Good luck.",bc_map; 
+						case IE_OK: 
 							setquest 70000;
 							break;
 					}
@@ -101,52 +100,24 @@ prontera,143,169,5	script	Leticia#ret	584,{
 		cutin "",255;
 		end;
 	}
-	
-	// mes "[Leticia]";
-	// mes "Hello, adventurer!";
-	// mes "If you are here I supose you want to retry.";
-	// if (select ("Let the dungeon begin.:Not now.") == 1) {
-	// 	clear;
-	// 	cutin "",255;
-	// 	cutin "4JOB_LETICIA_03",1;
-	// 	emotion 29;
-	// 	mes "[Leticia]";
-	// 	mes "Here we go then.";
-	// 	//warp, iniciar instancia
-	// 	close3;
-	// }
-	// clear;
-	// cutin "",255;
-	// emotion 9;
-	// cutin "4JOB_LETICIA_02",1;
-	// mes "[Leticia]";
-	// mes "Then get out.";
-	// close3;
 }
 
 
 
-lv_beach,98,95,4	script	Leticia#beach	584,{
+//argumentos::
+// 0.- Mapa
+// 1.- X1
+// 2.- Y1
+// 3.- X2
+// 4.- Y2
+// 5.- Nombre a mostrar
+// 6.- Mob ID
+// 7.- Cantidad
+function	script	MobSpawn	{
+	set .@map$, instance_mapname(getarg(0));
 
-}
-
-lv_beach,1,1,0	script	tutorial_fight1	-1,{
-OnInstanceInit:
-	disablenpc instance_npcname("tutorial_fight1");
-	end;
-OnDisable:
-	disablenpc instance_npcname("tutorial_fight1");
-	stopnpctimer;
-	end;
-OnEnable:
-	enablenpc instance_npcname("tutorial_fight1");
-	initnpctimer;
-	end;
-OnTimer3000:
-	mapannounce instance_mapname("tutorial_fight1"), "What do we have here? More fresh meat... ",bc_map,"0xFFFF00";
-	end;
-OnTimer8000:
-	mapannounce instance_mapname("tutorial_fight1"), "Listen to me, brothers! We're having a feast tonight... Embrace yourself!",bc_map,"0xFFFF00";
-OnTimer12000:
-	
+	for ( .@i = 1 ; .@i <= getarg(7) ; .@i++ ){
+		areamonster .@map$,getarg(1),getarg(2),getarg(3),getarg(4),getarg(5),getarg(6),1;
+		sleep 3000;
+	}
 }

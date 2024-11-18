@@ -64,20 +64,16 @@ OnInit:
 
 OnStage1:
     sleep 2000;
-    monster "new_1-1",56,144,"NOoOOoOOOooOo",1374,1,"mioControl#dung::OnMobKill";
-    monster "new_1-1",60,144,"YesSSsSSSssSs",1370,1,"mioControl#dung::OnMobKill";
+    monster "new_1-1",56,144,"NOoOOoOOOooOo",1374,1,"mioControl#dung::OnKill";
+    monster "new_1-1",60,144,"YesSSsSSSssSs",1370,1,"mioControl#dung::OnKill";
     sleep 10000;
-    monster "new_1-1",56,144,"NOoOOoOOOooOo",1374,1,"mioControl#dung::OnMobKill";
-    monster "new_1-1",60,144,"YesSSsSSSssSs",1370,1,"mioControl#dung::OnMobKill";
+    monster "new_1-1",56,144,"NOoOOoOOOooOo",1374,1,"mioControl#dung::OnKill";
+    monster "new_1-1",60,144,"YesSSsSSSssSs",1370,1,"mioControl#dung::OnKill";
     end;
-OnStage2:
-OnStage3:
-OnStage4:
 
-OnMobKill:
+OnKill:
     MUERTOS++;
     if (MUERTOS == 4) {
-        STAGE++;
         announce "All monster are dead, good job.",bc_npc|bc_map;
     }
     end;

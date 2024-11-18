@@ -10,7 +10,7 @@
 -	shop	Emistry_Shop	-1,512:100
 
 
-prontera,147,167,5	script	mioShop#pront	757,{
+prontera,147,169,5	script	mioShop#pront	757,{
 function ShopSettings;
 function ValidateCost;
 function CurrencyInfo;

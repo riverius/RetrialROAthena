@@ -1622,7 +1622,7 @@ shorter than 'min' and 0 otherwise.
 *callfunc("<function>"{,<argument>,...<argument>})
 
 This command lets you call up a function NPC. A function NPC can be called from
-any script on any map server. Using the 'return' command it will come back to
+any script on ANY MAP SERVER. Using the 'return' command it will come back to
 the place that called it.
 
 	place,50,50,6%TAB%script%TAB%Woman%TAB%115,{

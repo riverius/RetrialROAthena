@@ -6968,14 +6968,17 @@ BUILDIN_FUNC(viewpointmap) {
  * Set random options for new item
  * @param st Script state
  * @param it Temporary item data
- * @param funcname Function name
+ * @param funcname Function name, for debug messages
  * @param x First position of random option id array from the script
  **/
 static bool script_getitem_randomoption(struct script_state *st, map_session_data* sd, struct item *it, const char *funcname, int x) {
 	int i, opt_id_n;
+
+	// arrays con info para el generador random
 	struct script_data *opt_id = script_getdata(st,x);
 	struct script_data *opt_val = script_getdata(st,x+1);
 	struct script_data *opt_param = script_getdata(st,x+2);
+	
 	const char *opt_id_var = reference_getname(opt_id);
 	const char *opt_val_var = reference_getname(opt_val);
 	const char *opt_param_var = reference_getname(opt_param);
@@ -7715,31 +7718,31 @@ BUILDIN_FUNC(getitem)
  *------------------------------------------*/
 BUILDIN_FUNC(getitem2)
 {
-	TBL_PC *sd;
+	TBL_PC *sd; // informacion del jugador en el servidor
 	char bound = BOUND_NONE;
-	const char* command = script_getfuncname(st);
+	const char* command = script_getfuncname(st); // nombre de la funcion que callea
 	int offset = 0;
 	int grade_offset = 0;
 
-	if( !strncmp(command,"getitembound",12) ) {
-		int aid_pos = 12;
+	if( !strncmp(command,"getitembound",12) ) {  // strncmp compara command con el string, y opera si son iguales los 12 primeros caracteres
+		int aid_pos = 12; //accountID pos en el script
 		bound = script_getnum(st,11);
-		if( bound < BOUND_NONE || bound >= BOUND_MAX ) {
+		if( bound < BOUND_NONE || bound >= BOUND_MAX ) { // confirmacion de bound dentro de limites
 			ShowError("script_getitembound2: Not a correct bound type! Type=%d\n",bound);
 			return SCRIPT_CMD_FAILURE;
 		}
-		if (command[strlen(command)-1] == '3') {
+		if (command[strlen(command)-1] == '3') { // si es getitembound 3
 			offset = 12;
 			aid_pos = 15;
 		}
-		else if (command[strlen(command)-1] == '4') {
+		else if (command[strlen(command)-1] == '4') { // si es getitembound 4
 			grade_offset = 12;
 			offset = 13;
 			aid_pos = 16;
 		}
 		script_mapid2sd(aid_pos,sd);
-	} else {
-		int aid_pos = 11;
+	} else {  									 // else, si es getitem
+		int aid_pos = 11;						// aid_pos = 11 por defecto
 		if (strcmpi(command,"getitem3") == 0) {
 			offset = 11;
 			aid_pos = 14;
@@ -7758,6 +7761,7 @@ BUILDIN_FUNC(getitem2)
 	t_itemid nameid;
 	std::shared_ptr<item_data> item_data;
 
+	// Obtiene el ID del ITEM
 	if( script_isstring(st, 2) ) {
 		const char *name = script_getstr(st, 2);
 
@@ -7779,15 +7783,17 @@ BUILDIN_FUNC(getitem2)
 		}
 	}
 
-	int amount = script_getnum(st,3);
-	int iden = script_getnum(st,4);
-	int ref = script_getnum(st,5);
-	int attr = script_getnum(st,6);
+	// recupera argumentos de la funcion
+	int amount = script_getnum(st,3); //cantidad
+	int iden = script_getnum(st,4); //lupita
+	int ref = script_getnum(st,5); //refine
+	int attr = script_getnum(st,6); //atributo
 	t_itemid c1 = script_getnum(st,7);
 	t_itemid c2 = script_getnum(st,8);
 	t_itemid c3 = script_getnum(st,9);
 	t_itemid c4 = script_getnum(st,10);
 
+	// donde se guardara la informacion del nuevo item
 	struct item item_tmp = {};
 
 	if( item_data ) {
@@ -7830,7 +7836,7 @@ BUILDIN_FUNC(getitem2)
 		}
 
 		int get_count = 0;
-	
+
 		//Check if it's stackable.
 		if( !itemdb_isstackable2( item_data.get() ) ){
 			get_count = 1;
@@ -7840,7 +7846,6 @@ BUILDIN_FUNC(getitem2)
 
 		for (int i = 0; i < amount; i += get_count)
 		{
-			// if not pet egg
 			if (!pet_create_egg(sd, nameid))
 			{
 				unsigned char flag = 0;
@@ -27252,6 +27257,32 @@ BUILDIN_FUNC(setstats2origin) {
 	return SCRIPT_CMD_SUCCESS;
 }
 
+// Sistema de dropeo de items Retrial Dungeon
+// comentar antes de guardar
+/*
+BUILDIN_FUNC(retrialdrop)
+{
+}
+*/
+
+
+// Forzar Peso Maximo
+BUILDIN_FUNC(setmaxweight){
+	
+	int char_id = script_getnum(st, 2);
+	int target_weight = script_getnum(st, 3);
+	map_session_data *sd = map_charid2sd(char_id);
+
+	sd->max_weight=target_weight*100;
+
+	clif_updatestatus(sd,SP_MAXWEIGHT);
+
+	status_calc_pc(sd, SCO_FORCE);
+
+	return SCRIPT_CMD_SUCCESS;
+}
+
+
 
 /// script command definitions
 /// for an explanation on args, see add_buildin_func
@@ -27968,7 +27999,7 @@ struct script_function buildin_func[] = {
 	// RETRIAL RO
 	BUILDIN_DEF(setstats2one, "i"),
 	BUILDIN_DEF(setstats2origin, "iiiiiii"),
-
+	BUILDIN_DEF(setmaxweight, "ii"),
 
 #include <custom/script_def.inc>
 

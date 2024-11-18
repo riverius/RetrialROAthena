@@ -1245,6 +1245,8 @@ bl_depth2
 // - Other/Extra maps -
 //======================================================================================
 
-// siguiente ID 1232 creo xddd testear
-lv_beach	1250
+lv_beach 1250
 ice2xlake
+prueba3
+mapahielo1
+inicial

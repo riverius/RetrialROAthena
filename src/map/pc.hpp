@@ -500,7 +500,7 @@ public:
 	int npc_item_flag; //Marks the npc_id with which you can use items during interactions with said npc (see script command enable_itemuse)
 	int npc_menu; // internal variable, used in npc menu handling
 	int npc_amount;
-	struct script_state *st;
+	struct script_state *st; // AQUI ESTA EL SCRIPT STATE PERSONAL DEL JUGADOR
 	char npc_str[CHATBOX_SIZE]; // for passing npc input box text to script engine
 	int npc_timer_id; //For player attached npc timers. [Skotlex]
 	unsigned int chatID;

@@ -19,7 +19,7 @@ prontera,140,173,5	script	testing#pront	650,{
             mes "[Test]";
             mes "Bye falcon!";
             setfalcon 0;
-            LEFALCON = 0; // aunque sea 0 no deja de existir
+            LEFALCON = 0;
             close3;
         }
         close3;
@@ -35,7 +35,7 @@ prontera,140,173,5	script	testing#pront	650,{
 }
 
 //probando varias funciones y variables
-prontera,137,169,5	script	Mio Slave#pront	403,{
+prontera,137,169,5	script	Mio Slaver#pront	403,{
     cutin "3RD_AB_ANGHILDE01",1;
     mes "[MioSlave]";
     mes "Hello, Master.";
@@ -81,16 +81,24 @@ prontera,137,169,5	script	Mio Slave#pront	403,{
 // warp mjolnir_06 a prontera
 mjolnir_06,178,260,0	warp	mioWarp	2,5,prontera,156,181
 
-// NPC pa probar quests
+
 mjolnir_06,162,279,5	script	Canor#mjlr06	95,{
     cutin "CA_NOR",1;
     mes "[Canor]";
     mes "Hello, Master.";
     mes "Let's try to make this quest work.";
-    close3;
+	.@menu = select("Summon pet monster.:Nothing.");
+    if (.@menu == 1) {
+		summon "El culon",1832;
+		close3;
+	}
+	else if (.@menu == 2) {
+		mes "Okay.";
+		close3;
+	}
 }
 
-//test doevent npc --- se activa unicamente el evento del otro npc
+
 mjolnir_06,162,274,4	script	doevent1#mjlr06	401,{
     mes "Guy 2 copies my actions!";
 		close2;
@@ -108,4 +116,31 @@ mjolnir_06,160,274,5	script	doevent2#mjlr06	471,{
 	OnEmote:
 		emotion rand(1,30);
 		end;
+}
+
+
+prontera,147,166,5	script	JobShadow#retrial	10173,{
+	mes "[JobShadow]";
+	mes " ";
+	mes "TO DO"; // TO DO
+	
+	.@menu = select("Basic Skill level 7.:Change Job.:Return to Novice.:Set Max Weight to 500");
+	if (.@menu == 1) {
+		skill 1,7,0; //Basic Skill a level 7, para usar todo excepto cambiar de job
+		close;
+	}
+	else if (.@menu == 2) {
+		jobchange 3; //Cambio de job a archer
+		close;
+	}
+	else if (.@menu == 3) {
+		jobchange 0; // volver a Novice
+		close;
+	}
+	else if (.@menu == 4) {
+		setmaxweight getcharid(0),1000; // Peso Máximo
+		close;
+	}
+
+
 }
